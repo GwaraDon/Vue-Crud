@@ -1,6 +1,29 @@
 {
-    "posts": [
-      { "id": 1, "title": "First Post", "body": "This is the first post." }
+    "students": [
+      {
+        "id":1,
+        "name": "Binay", 
+        "email" : "binay@gmail.com",
+        "phoneNumber" : 9843933333
+       } ,
+       {
+        "id":13,
+        "name": "Ram", 
+        "email" : "ram@gmail.com",
+        "phoneNumber" : 98439844444
+       } ,
+       {
+        "id":133,
+        "name": "shyam", 
+        "email" : "shyam@gmail.com",
+        "phoneNumber" : 9843984333
+       } ,
+       {
+        "id":12,
+        "name": "hari", 
+        "email" : "hari@gmail.com",
+        "phoneNumber" : 9843000000
+       } 
     ]
   }
   
