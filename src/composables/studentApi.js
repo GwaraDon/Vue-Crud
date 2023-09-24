@@ -28,9 +28,67 @@ export default function useStudent() {
       errorMessage.value = err.message;
     }
   };
+  const createStudent = async (formData) => {
+    studentData.value = []
+    errorMessage.value = null
+    try {
+      const config = {
+        method:'POST',
+        url: url,
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify(formData)
+      }
+      const res = await axios(config)
+      studentData.value = res.data
+    } catch (err) {
+      errorMessage.value =err.message
+    }
+  }
+  const updateStudentData = async (id, data) => {
+    studentData.value = []
+    errorMessage.value = null
+    try {
+      const config = {
+        method:'PUT',
+        url: url + "/" + id,
+        headers:{
+          'Content-Type': 'application/json'
+        },
+        data: JSON.stringify(data)
+      }
+      const res = await axios(config)
+      studentData.value = res.data
+    } catch (err) {
+      errorMessage.value =err.message
+    }
+  }
+
+  const deleteStudent = async (id) =>{
+    studentData.value = []
+    errorMessage.value = null
+    try {
+      const config = {
+        method:'DELETE',
+        url: url + "/" + id,
+        headers:{
+          'Content-Type': 'application/json'
+        },
+      }
+      const res = await axios(config)
+      studentData.value = res.data
+    } catch (err) {
+      errorMessage.value =err.message
+    }
+  }
+
   return {
     getAllStudents,
     getStudent,
+    createStudent,
+    updateStudentData,
+    deleteStudent,
     studentData,
     errorMessage,
   };

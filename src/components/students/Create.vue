@@ -1,50 +1,132 @@
 <template>
-   
-<form class="p-5" @submit.prevent="handleFormData">
+  <div class="sticky top-0 z-40 bg-white p-5 lg:mx-auto lg:px-8">
+    <Breadcrumb :pages="breadcrumb" />
+  </div>
+  <form class="m-6 bg-slate-100 p-6" @submit.prevent="handleFormData">
+    <div class="border-b border-gray-900/10 pb-12">
+      <h2 class="text-base font-semibold leading-7 text-gray-900">
+        Personal Information
+      </h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600">
+        Use a permanent address where you can receive mail.
+      </p>
 
-  <div class="grid md:grid-cols-2 md:gap-6">
-    <div class="relative z-0 w-full mb-6 group">
-        <input v-model.trim="formData.firstName" type="text" name="floating_first_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_first_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">First name</label>
-    </div>
-    <div class="relative z-0 w-full mb-6 group">
-        <input v-model.trim="formData.lastName"  type="text" name="floating_last_name" id="floating_last_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_last_name" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Last name</label>
-    </div>
-  </div>
-  <div class="grid md:grid-cols-2 md:gap-6">
-    <div class="relative z-0 w-full mb-6 group">
-        <input v-model.trim="formData.phoneNumber" type="tel"  name="floating_phone" id="floating_phone" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-        <label for="floating_phone" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Phone number (123-456-7890)</label>
-    </div>
-    <div class="relative z-0 w-full mb-6 group">
-      <input v-model.trim="formData.email" type="email" name="floating_email" id="floating_email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
-      <label for="floating_email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email address</label>
-  </div>
-  </div>
-  <div class="flex gap-4">
-    <button type="button" class="text-white bg-blue-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Go Back</button>
-  <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+      <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+          <label
+            for="first-name"
+            class="block text-sm font-medium leading-6 text-gray-900"
+            >First name</label
+          >
+          <div class="mt-2">
+            <input
+              type="text"
+              v-model.trim="formData.firstName"
+              name="first-name"
+              id="first-name"
+              autocomplete="given-name"
+              class="block h-10 w-full rounded-md border-0 px-3 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
 
-  </div>
-</form>
+        <div class="sm:col-span-3">
+          <label
+            for="last-name"
+            class="block text-sm font-medium leading-6 text-gray-900"
+            >Last name</label
+          >
+          <div class="mt-2">
+            <input
+              type="text"
+              v-model.trim="formData.lastName"
+              name="last-name"
+              id="last-name"
+              autocomplete="family-name"
+              class="block h-10 w-full rounded-md border-0 px-3 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
 
+        <div class="sm:col-span-3">
+          <label
+            for="email"
+            class="block text-sm font-medium leading-6 text-gray-900"
+            >Email address</label
+          >
+          <div class="mt-2">
+            <input
+              id="email"
+              v-model.trim="formData.email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              class="block h-10 w-full rounded-md border-0 px-3 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+        <div class="sm:col-span-3">
+          <label
+            for="phoneNumber"
+            class="block text-sm font-medium leading-6 text-gray-900"
+            >Phone Number
+          </label>
+          <div class="mt-2">
+            <input
+              id="phoneNumber"
+              v-model.trim="formData.phoneNumber"
+              name="phoneNumber"
+              type="number"
+              autocomplete="phoneNumber"
+              class="block h-10 w-full rounded-md border-0 px-3 py-1.5 text-sm text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6 flex items-center justify-end gap-x-6">
+      <button
+        type="button"
+        class="text-sm font-semibold leading-6 text-gray-900"
+        @click="goBack"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        Save
+      </button>
+    </div>
+  </form>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive } from "vue";
+import useStudent from "../../composables/studentApi";
+
+import Breadcrumb from "../common/Breadcrumb.vue";
+import { useRouter } from "vue-router";
+
+const { createStudent, studentData, errorMessage } = useStudent();
 const formData = reactive({
-    firstName : "",
-    lastName : "",
-    email: "",
-    phoneNumber: ""
-})
-const handleFormData = async() => {
-    console.log('form data', formData);
-}
+  firstName: "",
+  lastName: "",
+  email: "",
+  phoneNumber: "",
+});
+const handleFormData = async () => {
+  await createStudent(formData);
+};
+const router = useRouter();
+const goBack = () => {
+  router.go(-1);
+};
+const breadcrumb = [
+  { name: "Home", href: "/", current: false },
+  { name: "Create", href: "/create", current: true },
+];
 </script>
 
-
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 sm:px-6 lg:px-8">
+  <div class="m-6 bg-slate-100 p-6">
     <div class="sm:flex sm:items-center">
       <div class="sm:flex-auto">
         <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
@@ -19,7 +19,16 @@
     </div>
     <div class="mt-8 flow-root">
       <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+        <div
+          v-if="errorMessage"
+          class="m-5 flex items-center bg-red-100 p-5 text-red-500"
+        >
+          {{ errorMessage }}
+        </div>
+        <div
+          v-if="studentData.length"
+          class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
+        >
           <table class="min-w-full divide-y divide-gray-300">
             <thead>
               <tr>
@@ -53,38 +62,45 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-gray-200 bg-white">
-              <tr
-                v-for="({ id, name, email, phoneNumber }, index) in studentData"
-                :key="index"
-              >
-                <td class="px-3 py-3.5">{{ id }}</td>
-                <td class="px-3 py-3.5">{{ name }}</td>
-                <td class="px-3 py-3.5">{{ email }}</td>
-                <td class="px-3 py-3.5">{{ phoneNumber }}</td>
-                <td class="px-3 py-3.5">
-                  <div class="flex items-center gap-1">
-                    <router-link
-                      :to="{ name: 'view', params: { id: id } }"
-                      href="#"
-                      class="block h-4 w-4 text-indigo-600 hover:text-indigo-900"
-                    >
-                      <EyeIcon />
-                      <span class="sr-only">View</span></router-link
-                    >
-                    <router-link
-                      :to="{ name: 'edit', params: { id: id } }"
-                      href="#"
-                      class="block h-4 w-4 text-indigo-600 hover:text-indigo-900"
-                    >
-                      <PencilSquareIcon />
-                      <span class="sr-only">Edit</span></router-link
-                    >
-                    <a
-                      href="#"
-                      class="block h-4 w-4 text-indigo-600 hover:text-indigo-900"
-                      ><TrashIcon /> <span class="sr-only">Delete</span></a
-                    >
-                  </div>
+              <template v-if="studentData.length">
+                <tr
+                  v-for="(
+                    { id, firstName, lastName, email, phoneNumber }, index
+                  ) in studentData"
+                  :key="index"
+                >
+                  <td class="px-3 py-3.5">{{ id }}</td>
+                  <td class="px-3 py-3.5">{{ firstName }} {{ lastName }}</td>
+                  <td class="px-3 py-3.5">{{ email }}</td>
+                  <td class="px-3 py-3.5">{{ phoneNumber }}</td>
+                  <td class="px-3 py-3.5">
+                    <div class="flex items-center gap-1">
+                      <router-link
+                        :to="{ name: 'view', params: { id: id } }"
+                        class="block h-4 w-4 text-indigo-600 hover:text-indigo-900"
+                      >
+                        <EyeIcon />
+                        <span class="sr-only">View</span></router-link
+                      >
+                      <router-link
+                        :to="{ name: 'edit', params: { id: id } }"
+                        class="block h-4 w-4 text-indigo-600 hover:text-indigo-900"
+                      >
+                        <PencilSquareIcon />
+                        <span class="sr-only">Edit</span></router-link
+                      >
+                      <span
+                        @click="handleDelete(id)"
+                        class="block h-4 w-4 text-indigo-600 hover:text-indigo-900"
+                        ><TrashIcon /> <span class="sr-only">Delete</span></span
+                      >
+                    </div>
+                  </td>
+                </tr>
+              </template>
+              <tr v-else>
+                <td colspan="5" class="text-center text-slate-500">
+                  No data found
                 </td>
               </tr>
             </tbody>
@@ -100,9 +116,18 @@ import { onMounted } from "vue";
 import { EyeIcon, PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
 import useStudent from "../../composables/studentApi";
 
-const { getAllStudents, studentData } = useStudent();
+const { getAllStudents, studentData, deleteStudent, errorMessage } =
+  useStudent();
 
 onMounted(() => {
   getAllStudents();
 });
+const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure")) {
+    return;
+  }
+  await deleteStudent(id);
+  await getAllStudents();
+  console.log("Student Deleted", id);
+};
 </script>

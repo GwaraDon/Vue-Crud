@@ -1,29 +1,46 @@
 {
-    "students": [
-      {
-        "id":1,
-        "name": "Binay", 
-        "email" : "binay@gmail.com",
-        "phoneNumber" : 9843933333
-       } ,
-       {
-        "id":13,
-        "name": "Ram", 
-        "email" : "ram@gmail.com",
-        "phoneNumber" : 98439844444
-       } ,
-       {
-        "id":133,
-        "name": "shyam", 
-        "email" : "shyam@gmail.com",
-        "phoneNumber" : 9843984333
-       } ,
-       {
-        "id":12,
-        "name": "hari", 
-        "email" : "hari@gmail.com",
-        "phoneNumber" : 9843000000
-       } 
-    ]
-  }
-  
+  "students": [
+    {
+      "id": 1,
+      "firstName": "Binay",
+      "lastName": "maharjan",
+      "email": "binay@gmail.com",
+      "phoneNumber": 9843933333
+    },
+    {
+      "id": 13,
+      "firstName": "Ram",
+      "lastName": "maharjan",
+      "email": "ram@gmail.com",
+      "phoneNumber": 98439844444
+    },
+    {
+      "id": 133,
+      "firstName": "shyam",
+      "lastName": "maharjan",
+      "email": "shyam@gmail.com",
+      "phoneNumber": 9843984333
+    },
+    {
+      "id": 12,
+      "firstName": "hari",
+      "lastName": "maharjan",
+      "email": "hari@gmail.com",
+      "phoneNumber": 9843000000
+    },
+    {
+      "firstName": "daDSADASD",
+      "lastName": "hello from my isde",
+      "email": "binaymahar@gmail.com",
+      "phoneNumber": 3435464756765,
+      "id": 135
+    },
+    {
+      "firstName": "FDSASF",
+      "lastName": "dsdsd",
+      "email": "decama9088@royalka.com",
+      "phoneNumber": 9843534234,
+      "id": 136
+    }
+  ]
+}

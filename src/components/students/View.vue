@@ -1,60 +1,79 @@
 <template>
+  <div class="sticky top-0 z-40 bg-white p-5 lg:mx-auto lg:px-8">
+    <Breadcrumb :pages="breadcrumb" />
+  </div>
   <div class="px-4 sm:px-6 lg:px-8">
-    <table class="min-w-full divide-y divide-gray-300">
-      <thead>
-        <tr>
-          <th
-            scope="col"
-            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+    <div
+      v-if="errorMessage"
+      class="m-5 flex items-center bg-red-100 p-5 text-red-500"
+    >
+      {{ errorMessage }}
+    </div>
+
+    <div class="bg-white p-6" v-else>
+      <div class="relative mx-auto max-w-2xl lg:mx-0">
+        <figure class="flex flex-col gap-6">
+          <figcaption class="mt-6 space-y-4 text-base text-gray-600">
+            <div class="text-xl font-semibold text-black">
+              {{ studentData.firstName }} {{ studentData.lastName }}
+            </div>
+            <div class="">{{ studentData.email }}</div>
+            <div class="">{{ studentData.phoneNumber }}</div>
+          </figcaption>
+          <blockquote
+            class="mt-6 text-lg font-semibold sm:text-xl sm:leading-8"
           >
-            ID
-          </th>
-          <th
-            scope="col"
-            class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0"
-          >
-            Name
-          </th>
-          <th
-            scope="col"
-            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-          >
-            Email
-          </th>
-          <th
-            scope="col"
-            class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-          >
-            Phone
-          </th>
-          <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
-            <span class="sr-only">Action buttons</span>
-          </th>
-        </tr>
-      </thead>
-      <tbody class="divide-y divide-gray-200 bg-white">
-        <tr>
-          <td>{{ studentData.id }}</td>
-          <td>{{ studentData.name }}</td>
-          <td>{{ studentData.email }}</td>
-          <td>{{studentData.phoneNumber}}</td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
+            <p>
+              “Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo
+              expedita voluptas culpa sapiente alias molestiae. Numquam corrupti
+              in laborum sed rerum et corporis.”
+            </p>
+          </blockquote>
+          <div class="flex gap-6">
+            <button
+              type="button"
+              class="hover:opactiy-90 h-10 rounded-lg bg-gray-200 px-6 py-2 text-sm font-semibold leading-6 text-indigo-500 transition-all focus:outline-none"
+              @click="goBack"
+            >
+              Go To List
+            </button>
+            <button
+              type="button"
+              class="hover:opactiy-90 h-10 rounded-lg bg-indigo-500 px-6 py-2 text-sm font-semibold leading-6 text-gray-900 text-white transition-all focus:outline-none"
+              @click="goToEdit"
+            >
+              Edit
+            </button>
+          </div>
+        </figure>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { onMounted } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import useStudent from "../../composables/studentApi";
+import Breadcrumb from "../common/Breadcrumb.vue";
 
 const route = useRoute();
-const { getStudent, studentData } = useStudent();
+const { getStudent, studentData, errorMessage } = useStudent();
 onMounted(() => {
   getStudent(route.params.id);
 });
+const { params } = useRoute();
+const breadcrumb = [
+  { name: "Home", href: "/", current: false },
+  { name: "View", href: `/view/${params.id}`, current: true },
+];
+const router = useRouter();
+const goBack = () => {
+  router.go(-1);
+};
+const goToEdit = () => {
+  router.push({ path: `/edit/${params.id}` });
+};
 </script>
 
 <style lang="scss" scoped></style>

@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
 import NotFound from "../views/NotFound.vue";
 
 
@@ -7,25 +6,33 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: "/list",
-      name: "list",
-      component: () => import("../components/students/List.vue"),
+      path: "/",
+      name: "home",
+      component: () => import("../views/HomeView.vue"),
+      children: [
+        {
+          path: "/",
+          name: "list",
+          component: () => import("../components/students/List.vue"),
+        },
+        {
+          path: "/view/:id",
+          name: "view",
+         component: () => import("../components/students/View.vue"),
+        },
+        {
+          path: "/edit/:id",
+          name: "edit",
+          component: () => import("../components/students/Edit.vue"),
+        },
+        {
+          path: "/create",
+          name: "create",
+          component: () => import("../components/students/Create.vue"),
+        },
+      ]
     },
-    {
-      path: "/view/:id",
-      name: "view",
-     component: () => import("../components/students/View.vue"),
-    },
-    {
-      path: "/edit/:id",
-      name: "edit",
-      component: () => import("../components/students/Edit.vue"),
-    },
-    {
-      path: "/create",
-      name: "create",
-      component: () => import("../components/students/Create.vue"),
-    },
+    
     {
       path: "/about",
       name: "about",
