@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky top-0 z-40 lg:mx-auto lg:px-8 bg-white p-5">
+  <div class="sticky top-0 z-40 bg-white p-5 lg:mx-auto lg:px-8">
     <Breadcrumb :pages="breadcrumb" />
   </div>
   <form class="m-6 bg-slate-100 p-6" @submit.prevent="handleUpdateFormData">

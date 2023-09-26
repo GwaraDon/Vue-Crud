@@ -2,7 +2,7 @@
   <!-- Global notification live region, render this permanently at the end of the document -->
   <div
     aria-live="assertive"
-    class="pointer-events-none fixed inset-0 flex items-end px-4 py-6 sm:items-start sm:p-6"
+    class="pointer-events-none fixed inset-0 z-[999] flex items-end px-4 py-6 sm:items-start sm:p-6"
   >
     <div class="flex w-full flex-col items-center space-y-4 sm:items-end">
       <!-- Notification panel, dynamically insert this into the live region when it needs to be displayed -->
@@ -31,7 +31,7 @@
                   Successfully saved!
                 </p>
                 <p class="mt-1 text-sm text-gray-500">
-                  Anyone with a link can now view this file.
+                 Redirection  to list page
                 </p>
               </div>
               <div class="ml-4 flex flex-shrink-0">
@@ -57,5 +57,10 @@ import { ref } from "vue";
 import { CheckCircleIcon } from "@heroicons/vue/24/outline";
 import { XMarkIcon } from "@heroicons/vue/20/solid";
 
-const show = ref(true);
+defineProps({
+  show:{
+    required:true,
+    type:Boolean
+  }
+})
 </script>

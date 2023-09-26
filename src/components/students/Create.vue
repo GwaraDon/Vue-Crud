@@ -99,15 +99,17 @@
         Save
       </button>
     </div>
+    <Toast :show="isToastShow"/>
   </form>
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { reactive,ref } from "vue";
 import useStudent from "../../composables/studentApi";
 
 import Breadcrumb from "../common/Breadcrumb.vue";
 import { useRouter } from "vue-router";
+import Toast from "../common/Toast.vue";
 
 const { createStudent, studentData, errorMessage } = useStudent();
 const formData = reactive({
@@ -116,8 +118,13 @@ const formData = reactive({
   email: "",
   phoneNumber: "",
 });
+const isToastShow = ref(false)
 const handleFormData = async () => {
   await createStudent(formData);
+  isToastShow.value = true;
+  setTimeout(()=>{
+  router.push({path:'/' })
+  }, 3000)
 };
 const router = useRouter();
 const goBack = () => {

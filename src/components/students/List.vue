@@ -66,7 +66,7 @@
                 <tr
                   v-for="(
                     { id, firstName, lastName, email, phoneNumber }, index
-                  ) in studentData"
+                  ) in paginatedPosts"
                   :key="index"
                 >
                   <td class="px-3 py-3.5">{{ id }}</td>
@@ -105,16 +105,24 @@
               </tr>
             </tbody>
           </table>
+          <pagination
+            :current-page="currentPage"
+            :total-pages="totalPages"
+            @update-page="updatePage"
+          ></pagination>
         </div>
       </div>
     </div>
+    <DeleteModal :open="isDeleteModalOpen" @close-modal="hideDeleteModal" :delete-id="deleteId" />
   </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { EyeIcon, PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
 import useStudent from "../../composables/studentApi";
+import Pagination from "../common/Pagination.vue";
+import DeleteModal from "../common/DeleteModal.vue"
 
 const { getAllStudents, studentData, deleteStudent, errorMessage } =
   useStudent();
@@ -122,12 +130,28 @@ const { getAllStudents, studentData, deleteStudent, errorMessage } =
 onMounted(() => {
   getAllStudents();
 });
-const handleDelete = async (id) => {
-  if (!window.confirm("Are you sure")) {
-    return;
-  }
-  await deleteStudent(id);
-  await getAllStudents();
-  console.log("Student Deleted", id);
+const currentPage = ref(1);
+const perPage = 10;
+const totalPages = computed(() => {
+  return Math.ceil(studentData.value.length / perPage);
+});
+
+const paginatedPosts = computed(() => {
+  const startIndex = (currentPage.value - 1) * perPage;
+  const endIndex = startIndex + perPage;
+  return studentData.value.slice(startIndex, endIndex);
+});
+const isDeleteModalOpen = ref(false)
+const deleteId =  ref(0)
+const handleDelete = (id) => {
+  isDeleteModalOpen.value = true
+  deleteId.value = id
+};
+const hideDeleteModal = () =>{
+  isDeleteModalOpen.value = false
+  getAllStudents()
+}
+const updatePage = (newPage) => {
+  currentPage.value = newPage;
 };
 </script>
