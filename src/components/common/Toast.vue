@@ -28,10 +28,10 @@
               </div>
               <div class="ml-3 w-0 flex-1 pt-0.5">
                 <p class="text-sm font-medium text-gray-900">
-                  Successfully saved!
+                  {{ toastTitle }}
                 </p>
                 <p class="mt-1 text-sm text-gray-500">
-                 Redirection  to list page
+                  {{ toastMessage }}
                 </p>
               </div>
               <div class="ml-4 flex flex-shrink-0">
@@ -58,9 +58,24 @@ import { CheckCircleIcon } from "@heroicons/vue/24/outline";
 import { XMarkIcon } from "@heroicons/vue/20/solid";
 
 defineProps({
-  show:{
-    required:true,
-    type:Boolean
+  show: {
+    required: true,
+    type: Boolean,
+  },
+  toastMessage:{
+    required:false,
+    type:String,
+    default:""
+  },
+  toastTitle:{
+    required:false,
+    type:String,
+    default:""
+  },
+  toastClass:{
+    required:false,
+    type:String,
+    default:""
   }
-})
+});
 </script>
