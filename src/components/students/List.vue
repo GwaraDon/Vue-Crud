@@ -6,6 +6,8 @@
         <p class="mt-2 text-sm text-gray-700">
           A list of all the users in your account including their name, title,
           email and role.
+          {{ storeCounter.count }}
+          <button class="flex" @click="storeCounter.increment">Add count</button>
         </p>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -123,6 +125,7 @@ import { EyeIcon, PencilSquareIcon, TrashIcon } from "@heroicons/vue/20/solid";
 import useStudent from "../../composables/studentApi";
 import Pagination from "../common/Pagination.vue";
 import DeleteModal from "../common/DeleteModal.vue"
+import { useCounterStore } from "@/store/index"
 
 const { getAllStudents, studentData, deleteStudent, errorMessage } =
   useStudent();
@@ -130,6 +133,7 @@ const { getAllStudents, studentData, deleteStudent, errorMessage } =
 onMounted(() => {
   getAllStudents();
 });
+const storeCounter = useCounterStore();
 const currentPage = ref(1);
 const perPage = 10;
 const totalPages = computed(() => {

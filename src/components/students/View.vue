@@ -19,6 +19,12 @@
             </div>
             <div class="">{{ studentData.email }}</div>
             <div class="">{{ studentData.phoneNumber }}</div>
+            <div>
+              {{ storeCounter.count }}
+            </div>
+            <button class="flex" @click="storeCounter.decrement">
+              remove count
+            </button>
           </figcaption>
           <blockquote
             class="mt-6 text-lg font-semibold sm:text-xl sm:leading-8"
@@ -56,7 +62,9 @@ import { onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import useStudent from "../../composables/studentApi";
 import Breadcrumb from "../common/Breadcrumb.vue";
+import { useCounterStore } from "@/store/index";
 
+const storeCounter = useCounterStore();
 const route = useRoute();
 const { getStudent, studentData, errorMessage } = useStudent();
 onMounted(() => {
