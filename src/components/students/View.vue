@@ -20,10 +20,18 @@
             <div class="">{{ studentData.email }}</div>
             <div class="">{{ studentData.phoneNumber }}</div>
             <div>
-              {{ storeCounter.count }}
+              {{ count }}
+              {{ doubleCount }}
             </div>
+            <button class="flex" @click="storeCounter.increment">
+              add count
+            </button>
             <button class="flex" @click="storeCounter.decrement">
               remove count
+              {{ isReset }}
+            </button>
+            <button v-if="isReset" class="flex" @click="reset">
+              reset store
             </button>
           </figcaption>
           <blockquote
@@ -58,13 +66,21 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted,computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import useStudent from "../../composables/studentApi";
 import Breadcrumb from "../common/Breadcrumb.vue";
 import { useCounterStore } from "@/store/index";
+import { storeToRefs } from "pinia";
 
 const storeCounter = useCounterStore();
+const { count,doubleCount,isReset } = storeToRefs(storeCounter);
+
+const reset = () => {
+  count.value= 0;
+  doubleCount.value = 0
+  isReset.value = false
+}
 const route = useRoute();
 const { getStudent, studentData, errorMessage } = useStudent();
 onMounted(() => {

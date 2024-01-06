@@ -5,10 +5,14 @@ export const useCounterStore = defineStore("counter", () => {
   const count = ref(0);
   const name = ref("Eduardo");
   const doubleCount = computed(() => count.value * 2);
-  function increment() {
+  const isReset = ref(false)
+  const increment = () => {
     count.value++;
+    if(count.value > 0){
+        isReset.value = true;
+    }
   }
-  function decrement() {
+  const decrement = () => {
     if(count.value > 1){
         count.value--;
     }
@@ -17,5 +21,13 @@ export const useCounterStore = defineStore("counter", () => {
     }
   }
 
-  return { count, name, doubleCount, increment, decrement };
+  const handleReset = () =>{
+    isReset.value = !isReset.value;
+  }
+  const getUserById = (state) => {
+    return (userId) => state.users.find((user) => user.id === userId)
+  }
+
+  return { count, name, doubleCount, increment, decrement,isReset,handleReset };
 });
+

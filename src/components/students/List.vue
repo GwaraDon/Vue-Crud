@@ -8,6 +8,7 @@
           email and role.
           {{ storeCounter.count }}
           <button class="flex" @click="storeCounter.increment">Add count</button>
+          
         </p>
       </div>
       <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
